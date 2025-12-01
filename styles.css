@@ -545,4 +545,86 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/* Extra tweaks for phones */
+@media (max-width: 600px) {
+  body {
+    font-size: 16px;              /* a bit smaller than desktop */
+  }
+
+  .site-header {
+    padding: 0.6rem 1rem;
+  }
+
+  .logo-text h1 {
+    font-size: 1.25rem;
+  }
+
+  .logo-text p {
+    font-size: 0.8rem;
+  }
+
+  .main-nav {
+    width: 100%;
+    gap: 0.4rem;
+    justify-content: flex-start;
+    overflow-x: auto;             /* allows horizontal scroll if needed */
+  }
+
+  .main-nav a {
+    white-space: nowrap;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  .hero-overlay {
+    padding: 2.2rem 1.2rem;
+  }
+
+  .hero-overlay h2 {
+    font-size: 1.6rem;
+  }
+
+  .hero-overlay p {
+    font-size: 0.95rem;
+  }
+
+  .image-strip {
+    grid-template-columns: 1fr;   /* one image per row on phones */
+    gap: 0.4rem;
+  }
+
+  .content-section {
+    margin: 1.8rem 0.7rem;        /* less side margin on phones */
+    padding: 1.2rem;
+  }
+
+  .argument-card h3 {
+    font-size: 1.05rem;
+  }
+
+  .argument-card p,
+  .story-card p {
+    font-size: 0.9rem;
+  }
+
+  .poll-layout {
+    grid-template-columns: 1fr;   /* already set at 900px, but safe */
+    gap: 1.2rem;
+  }
+
+  .results-row {
+    grid-template-columns: 1fr;   /* label on top, bar under, percent on right */
+  }
+
+  .results-percent {
+    text-align: left;
+  }
+
+  .voter-table {
+    display: block;
+    overflow-x: auto;             /* horizontal scroll instead of squishing columns */
+    white-space: nowrap;
+  }
+}
+
 
