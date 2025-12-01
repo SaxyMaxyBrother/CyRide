@@ -1,7 +1,8 @@
 /* === Global styles === */
+/* ISU primary colors: cardinal #C8102E and gold #F1BE48 (from ISU brand guide) */
 :root {
-  --cardinal: #c8102e;   /* ISU cardinal red :contentReference[oaicite:13]{index=13} */
-  --gold: #f1be48;       /* ISU gold :contentReference[oaicite:14]{index=14} */
+  --cardinal: #c8102e;
+  --gold: #f1be48;
   --cardinal-dark: #8f0b21;
   --gold-dark: #c79433;
   --bg-light: #fdf6e9;
@@ -23,10 +24,12 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   background: var(--bg-light);
   color: var(--text-main);
-  line-height: 1.6;
+  line-height: 1.7;
+  font-size: 18px; /* slightly larger than default */
 }
 
 /* === Header & Nav === */
@@ -38,7 +41,7 @@ body {
   background: linear-gradient(90deg, var(--cardinal), var(--gold));
   color: white;
   box-shadow: var(--shadow-soft);
-  padding: 0.5rem 1.5rem;
+  padding: 0.6rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -51,8 +54,8 @@ body {
 }
 
 .logo-circle {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: white;
   color: var(--cardinal);
@@ -65,14 +68,16 @@ body {
 }
 
 .logo-text h1 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin: 0;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.03em;
 }
 
 .logo-text p {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
+  opacity: 0.9;
 }
 
 .main-nav {
@@ -84,8 +89,8 @@ body {
 .main-nav a {
   color: white;
   text-decoration: none;
-  font-size: 0.9rem;
-  padding: 0.3rem 0.7rem;
+  font-size: 0.95rem;
+  padding: 0.4rem 0.9rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   transition: background var(--transition-fast), color var(--transition-fast),
@@ -116,9 +121,9 @@ body {
   filter: brightness(0.7);
 }
 
-/* Example: use your own local image path here */
+/* Use an official CyRide hero photo saved locally as /images/cyride-hero.jpg */
 .hero-image-1 {
-  background-image: url("images/cyride-hero-1.jpg");
+  background-image: url("images/cyride-hero.jpg");
 }
 
 .hero-overlay {
@@ -139,14 +144,17 @@ body {
 .hero-overlay h2 {
   max-width: var(--max-width);
   margin: 0 auto 0.75rem;
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-size: clamp(2rem, 3.2vw, 2.7rem);
+  font-weight: 800;
 }
 
 .hero-overlay p {
   max-width: var(--max-width);
   margin: 0 auto 1.5rem;
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
+
+/* Hero stat cards */
 
 .hero-facts {
   max-width: var(--max-width);
@@ -157,7 +165,7 @@ body {
 }
 
 .fact-card {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.14);
   border-radius: var(--radius-lg);
   padding: 1rem 1.25rem;
   backdrop-filter: blur(4px);
@@ -165,17 +173,17 @@ body {
 
 .fact-number {
   display: block;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 
 .fact-label {
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .fact-card small {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   opacity: 0.9;
 }
 
@@ -184,9 +192,9 @@ body {
 .cta-button {
   border: none;
   border-radius: 999px;
-  padding: 0.7rem 1.4rem;
+  padding: 0.75rem 1.5rem;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   cursor: pointer;
   background: white;
   color: var(--cardinal);
@@ -207,14 +215,14 @@ body {
 }
 
 .reset-button {
-  margin-top: 0.5rem;
+  margin-top: 0.6rem;
   border-radius: 999px;
   border: 1px solid var(--cardinal);
   padding: 0.5rem 1rem;
   background: transparent;
   color: var(--cardinal);
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   transition: background var(--transition-fast), color var(--transition-fast);
 }
 
@@ -229,15 +237,15 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.25rem;
-  padding: 0.5rem;
+  padding: 0.6rem;
   background: #fff;
 }
 
 .image-strip img {
   width: 100%;
-  height: 130px;
+  height: 140px;
   object-fit: cover;
-  border-radius: 0.4rem;
+  border-radius: 0.6rem;
   filter: saturate(1.1);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
@@ -251,8 +259,8 @@ body {
 
 .content-section {
   max-width: var(--max-width);
-  margin: 2.5rem auto;
-  padding: 1.5rem;
+  margin: 2.7rem auto;
+  padding: 1.7rem;
   background: #fff;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
@@ -261,6 +269,8 @@ body {
 .content-section h2 {
   margin-top: 0;
   color: var(--cardinal);
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
 }
 
 /* Argument grid */
@@ -268,23 +278,24 @@ body {
 .argument-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .argument-card {
   background: var(--bg-muted);
   border-radius: var(--radius-lg);
-  padding: 1rem 1.1rem;
+  padding: 1.1rem 1.2rem;
   position: relative;
   overflow: hidden;
 }
 
 .argument-card h3 {
   margin-top: 0;
+  font-size: 1.15rem;
 }
 
 .argument-card p {
-  font-size: 0.95rem;
+  font-size: 0.98rem;
 }
 
 .toggle-details {
@@ -294,7 +305,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   padding: 0;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 .argument-card .details {
@@ -315,40 +326,41 @@ body {
 
 .chart-row {
   display: grid;
-  grid-template-columns: 130px 1fr 80px;
+  grid-template-columns: 180px 1fr 90px;
   gap: 0.75rem;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.7rem;
 }
 
 .chart-label {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .chart-bar {
   width: 100%;
-  height: 14px;
+  height: 16px;
   background: #eee;
   border-radius: 999px;
   overflow: hidden;
+  position: relative;
 }
 
-.chart-bar::after {
-  content: "";
-  display: block;
-  height: 100%;
+.chart-bar-fill {
+  position: absolute;
+  inset: 0;
   width: 0;
+  border-radius: 999px;
   background: linear-gradient(90deg, var(--cardinal), var(--gold));
   transition: width 0.8s ease-out;
 }
 
 .chart-value {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
 }
 
 .chart-footnote {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
   margin-top: 0.75rem;
 }
@@ -358,14 +370,18 @@ body {
 .stories-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 1.1rem;
+  margin-top: 1.1rem;
 }
 
 .story-card {
   padding: 1rem;
   background: var(--bg-muted);
   border-radius: var(--radius-lg);
+}
+
+.story-card h3 {
+  margin-top: 0;
 }
 
 /* Poll */
@@ -377,47 +393,48 @@ body {
 .poll-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr);
-  gap: 1.5rem;
+  gap: 1.8rem;
 }
 
 .poll-form label {
   display: block;
-  font-size: 0.9rem;
-  margin-bottom: 0.6rem;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
 }
 
 .poll-form input[type="text"],
 .poll-form input[type="email"] {
   width: 100%;
-  padding: 0.5rem 0.6rem;
+  padding: 0.55rem 0.7rem;
   border-radius: var(--radius-sm);
   border: 1px solid #ccc;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .poll-options {
-  margin: 0.75rem 0 1rem;
+  margin: 0.8rem 0 1.1rem;
   display: grid;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .poll-option {
   display: flex;
   align-items: flex-start;
-  gap: 0.4rem;
+  gap: 0.45rem;
   background: var(--bg-muted);
   border-radius: var(--radius-sm);
-  padding: 0.4rem 0.6rem;
+  padding: 0.45rem 0.7rem;
   cursor: pointer;
 }
 
 .poll-option input {
-  margin-top: 0.2rem;
+  margin-top: 0.15rem;
 }
 
 .poll-message {
   min-height: 1.2rem;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
 }
 
 .poll-message.success {
@@ -435,20 +452,20 @@ body {
 }
 
 .results-bars {
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
 }
 
 .results-row {
   display: grid;
-  grid-template-columns: 145px 1fr 55px;
-  gap: 0.4rem;
+  grid-template-columns: 165px 1fr 60px;
+  gap: 0.45rem;
   align-items: center;
-  margin-bottom: 0.4rem;
-  font-size: 0.85rem;
+  margin-bottom: 0.45rem;
+  font-size: 0.9rem;
 }
 
 .results-bar {
-  height: 12px;
+  height: 14px;
   background: #eee;
   border-radius: 999px;
   overflow: hidden;
@@ -467,13 +484,13 @@ body {
 }
 
 .voter-table-title {
-  margin-top: 1.5rem;
+  margin-top: 1.7rem;
 }
 
 .voter-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   margin-top: 0.4rem;
 }
 
@@ -496,13 +513,13 @@ body {
 
 .site-footer {
   text-align: center;
-  padding: 1.5rem 1rem 2rem;
-  font-size: 0.85rem;
+  padding: 1.7rem 1rem 2rem;
+  font-size: 0.9rem;
   color: var(--text-muted);
 }
 
 .footer-small {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
 
 /* Responsive */
@@ -520,6 +537,10 @@ body {
 
   .chart-row {
     grid-template-columns: 1fr;
-    gap: 0.25rem;
+    gap: 0.4rem;
+  }
+
+  .image-strip {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
