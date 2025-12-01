@@ -1,174 +1,1128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyRide Service Expansion: ISU Proposal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Better CyRide on Weekends</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --isu-cardinal: #C8102E;
+      --isu-gold: #F1BE48;
+      --isu-dark: #231f20;
+      --isu-light: #fdf7e9;
+      --bg-soft: #faf5f0;
+      --shadow-soft: 0 14px 30px rgba(0, 0, 0, 0.15);
+      --radius-xl: 18px;
+      --transition-fast: 0.2s ease;
+      --max-width: 1100px;
+      --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: linear-gradient(180deg, #fff 0%, var(--bg-soft) 100%);
+      color: #222;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 12px;
+      display: block;
+    }
+
+    /* NAVBAR */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 1.25rem;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      color: var(--isu-cardinal);
+      letter-spacing: 0.04em;
+    }
+
+    .logo-pill {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--isu-cardinal), var(--isu-gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      font-size: 0.85rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast), color var(--transition-fast);
+      color: #444;
+    }
+
+    nav a:hover {
+      background: rgba(200, 16, 46, 0.08);
+      border-color: rgba(200, 16, 46, 0.2);
+      color: var(--isu-cardinal);
+    }
+
+    /* LAYOUT */
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      color: var(--isu-cardinal);
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 4vw, 2.8rem);
+      line-height: 1.1;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+    }
+
+    p {
+      margin: 0.3rem 0 0.8rem;
+      color: #333;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(241, 190, 72, 0.18);
+      color: #7a5706;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--isu-cardinal);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 1.8rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .hero-text {
+      padding-right: 0.5rem;
+    }
+
+    .hero-highlight {
+      margin-top: 0.7rem;
+      font-size: 1rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .hero-badge {
+      font-size: 0.78rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      padding: 0.25rem 0.6rem;
+      background: #fff;
+    }
+
+    .hero-meta {
+      margin-top: 1.1rem;
+      font-size: 0.9rem;
+      color: #555;
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .hero-meta strong {
+      color: var(--isu-cardinal);
+    }
+
+    .hero-media {
+      background: radial-gradient(circle at top left, #ffe9b0 0, #fff 40%);
+      padding: 0.9rem;
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-media img {
+      border-radius: 18px;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-tag {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      background: rgba(0, 0, 0, 0.76);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .hero-tag span {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--isu-gold);
+    }
+
+    /* CARDS & GRIDS */
+
+    .card {
+      background: #fff;
+      border-radius: var(--radius-xl);
+      padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .card-soft {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(8px);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      color: #444;
+      max-width: 620px;
+      margin-bottom: 1.1rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .section-note {
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    /* WEEKDAY VS WEEKEND TOGGLE */
+
+    .toggle-group {
+      display: inline-flex;
+      border-radius: 999px;
+      background: #f4f2f2;
+      padding: 0.18rem;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .toggle-btn {
+      font-size: 0.8rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: #555;
+      transition: background var(--transition-fast),
+        color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .toggle-btn.active {
+      background: var(--isu-cardinal);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 12px rgba(200, 16, 46, 0.45);
+    }
+
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 0.85rem;
+    }
+
+    .stat-pill {
+      flex: 1 1 150px;
+      background: #faf2ea;
+      border-radius: 12px;
+      padding: 0.6rem 0.7rem;
+      font-size: 0.86rem;
+      display: grid;
+      gap: 0.15rem;
+      border-left: 4px solid var(--isu-cardinal);
+    }
+
+    .stat-label {
+      font-weight: 600;
+      color: var(--isu-cardinal);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .stat-value {
+      font-size: 0.95rem;
+    }
+
+    /* INTERACTIVE ACCORDION */
+
+    .accordion {
+      display: grid;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    .accordion-item {
+      border-radius: 12px;
+      background: #fdfbf8;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+    }
+
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.55rem 0.8rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .accordion-header span {
+      font-size: 1.1rem;
+      color: var(--isu-cardinal);
+      transition: transform var(--transition-fast);
+    }
+
+    .accordion-item.open .accordion-header span {
+      transform: rotate(90deg);
+    }
+
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 0.8rem;
+      font-size: 0.9rem;
+      color: #444;
+      transition: max-height 0.23s ease, padding-bottom 0.23s ease;
+    }
+
+    .accordion-item.open .accordion-body {
+      padding-bottom: 0.6rem;
+    }
+
+    /* IMAGE STRIP */
+
+    .image-strip {
+      display: grid;
+      grid-template-columns: 2.2fr 1.4fr;
+      gap: 0.6rem;
+      margin-top: 0.75rem;
+    }
+
+    .image-strip-small {
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .img-caption {
+      font-size: 0.75rem;
+      color: #555;
+      margin-top: 0.2rem;
+    }
+
+    /* POLL */
+
+    .poll-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    form.poll-form {
+      display: grid;
+      gap: 0.8rem;
+      margin-top: 0.6rem;
+    }
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.55rem 0.6rem;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.13);
+      font-size: 0.9rem;
+      font-family: var(--font-body);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    .options-list {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .option-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .option-row input {
+      margin: 0;
+    }
+
+    .btn-primary {
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(
+        135deg,
+        var(--isu-cardinal),
+        #9b001b,
+        var(--isu-cardinal)
+      );
+      color: #fff;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 12px 22px rgba(200, 16, 46, 0.5);
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast), filter var(--transition-fast);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+      box-shadow: 0 16px 30px rgba(200, 16, 46, 0.6);
+    }
+
+    .btn-primary span {
+      font-size: 1.1rem;
+    }
+
+    .poll-note {
+      font-size: 0.8rem;
+      color: #555;
+      margin-top: 0.3rem;
+    }
+
+    .poll-message {
+      font-size: 0.85rem;
+      margin-top: 0.4rem;
+    }
+
+    .poll-message.success {
+      color: #146c23;
+    }
+
+    .poll-message.error {
+      color: #a31212;
+    }
+
+    /* RESULTS */
+
+    .results-card {
+      background: #1a1011;
+      color: #fff;
+      border-radius: var(--radius-xl);
+      padding: 1rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .results-card::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background: radial-gradient(
+        circle at top left,
+        rgba(241, 190, 72, 0.7),
+        transparent 60%
+      );
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .results-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .results-grid {
+      display: grid;
+      gap: 0.65rem;
+      margin-top: 0.6rem;
+    }
+
+    .result-row {
+      font-size: 0.85rem;
+    }
+
+    .result-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      overflow: hidden;
+      margin-top: 0.25rem;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        var(--isu-gold),
+        #ffe4a3,
+        var(--isu-gold)
+      );
+      transition: width 0.3s ease;
+    }
+
+    .vote-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 0.1rem 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--isu-gold);
+    }
+
+    /* FOOTER */
+
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #666;
+      padding: 0 0 1.5rem;
+    }
+
+    footer a {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .poll-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .image-strip {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        justify-content: flex-start;
+      }
+      main {
+        padding-inline: 1rem;
+      }
+      .card {
+        padding-inline: 0.9rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <header>
+    <div class="nav-inner">
+      <div class="logo">
+        <div class="logo-pill">CY</div>
+        <span>Better CyRide Weekends</span>
+      </div>
+      <nav>
+        <a href="#intro">Overview</a>
+        <a href="#evidence">Evidence</a>
+        <a href="#stories">Student Impact</a>
+        <a href="#solutions">Proposed Fixes</a>
+        <a href="#vote">Vote</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Header & Sticky Navigation (Cardinal Background) -->
-    <header class="sticky top-0 z-50 shadow-lg" id="main-header">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <h1 class="text-xl font-black text-white">CYCLONE TRANSIT INITIATIVE</h1>
-                <nav class="flex space-x-2" id="main-nav">
-                    <button class="nav-button active" data-target="overview">Overview</button>
-                    <button class="nav-button" data-target="problem">The Problem</button>
-                    <button class="nav-button" data-target="solution">The Solution</button>
-                    <button class="nav-button" data-target="vote">Vote</button>
-                </nav>
+  <main>
+    <!-- INTRO / HERO -->
+    <section id="intro">
+      <div class="pill">
+        <span class="pill-dot"></span>
+        English 250 – Argument Project
+      </div>
+
+      <div class="hero">
+        <div class="hero-text">
+          <h1>CyRide is strong on weekdays. Let’s make weekends match.</h1>
+          <p class="hero-highlight">
+            CyRide serves almost <strong>5 million passengers every year</strong> 
+            and keeps Iowa State moving — but weekend buses run on fewer routes and 
+            with less frequency, leaving many students without reliable options for 
+            work, worship, groceries, and campus life.
+          </p>
+
+          <div class="hero-badges">
+            <div class="hero-badge">ISU Theme · Cardinal &amp; Gold</div>
+            <div class="hero-badge">Focus: Weekend Service</div>
+            <div class="hero-badge">Mode: Public Transit Advocacy</div>
+          </div>
+
+          <div class="hero-meta">
+            <div>
+              <strong>CyRide at a glance:</strong> 4,997,210 passengers in FY2025,
+              89 buses, and 214 employees working to keep Ames moving.
             </div>
+            <div>
+              <strong>Argument:</strong> Iowa State and the City of Ames should
+              invest in <em>stronger weekend routes</em> to match weekday demand and
+              support student success, safety, and equity.
+            </div>
+          </div>
         </div>
-    </header>
 
-    <!-- Section 1: Hero/Overview (Uses background image 1) -->
-    <section id="overview" class="content-section active hero-section text-white flex items-center">
-        <div class="max-w-7xl mx-auto px-4 py-32 sm:px-6 lg:px-8 bg-black bg-opacity-60 rounded-xl shadow-2xl m-4">
-            <h2 class="text-5xl md:text-7xl font-black gold-text tracking-tight mb-4">END THE WEEKEND WAIT.</h2>
-            <p class="text-xl md:text-2xl font-semibold mb-6">
-                A proposal for the Board of Regents: Reinvest in CyRide for safer, reliable weekend service until 11 PM.
+        <div class="hero-media">
+          <!-- Official CyRide-hosted image -->
+          <img
+            src="https://www.cyride.com/home/showpublishedimage/770/636408362268370000"
+            alt="CyRide bus stop sign next to a transit bus"
+          />
+          <div class="hero-tag">
+            <span></span>
+            <div>Photo: CyRide “Around the World” gallery</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY WEEKENDS MATTER / FACTS -->
+    <section id="evidence">
+      <div class="section-header">
+        <h2>What changes on weekends?</h2>
+        <div class="toggle-group" aria-label="View weekday vs weekend service">
+          <button class="toggle-btn active" data-view="weekday">
+            Weekday service
+          </button>
+          <button class="toggle-btn" data-view="weekend">
+            Weekend service
+          </button>
+        </div>
+      </div>
+
+      <p class="tagline">
+        CyRide’s weekday network is extensive, but Saturdays and Sundays run with
+        fewer lines and fewer options. Below is a simplified look at the
+        difference during the school-year schedule.
+      </p>
+
+      <div class="card card-soft" id="serviceCard">
+        <div id="weekdayView">
+          <h3>Weekdays – Full Network</h3>
+          <p>
+            On a typical school-year weekday, CyRide operates a
+            <strong>broad network of routes</strong>, including campus-focused
+            lines like <strong>#7 Purple, #12 Lilac, #21 Cardinal, #23 Orange,
+            #25 Gold</strong>, plus the East Ames Service Extension (EASE).
+          </p>
+
+          <div class="stats-row">
+            <div class="stat-pill">
+              <div class="stat-label">Coverage</div>
+              <div class="stat-value">
+                Frequent access to campus, Campustown, apartments, malls, and
+                employment hubs throughout the day.
+              </div>
+            </div>
+            <div class="stat-pill">
+              <div class="stat-label">Campus mobility</div>
+              <div class="stat-value">
+                Multiple overlapping routes give students flexibility to combine
+                classes, work, clubs, and studying late on campus.
+              </div>
+            </div>
+            <div class="stat-pill">
+              <div class="stat-label">Equity</div>
+              <div class="stat-value">
+                Students without cars can largely rely on transit to get to
+                essentials Monday–Friday.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="weekendView" style="display: none;">
+          <h3>Weekends – Reduced Network</h3>
+          <p>
+            During the school-year schedule, weekends operate on a smaller
+            network:
+            <strong>10 routes on Saturdays and 9 on Sundays</strong>.
+            Weekend pages list only:
+            <strong>#1 Red (East/West), #2 Green (East/West), #3 Blue, #5 Yellow
+            (Saturday only), #6 Brown (North/South), #9 Plum, #11 Cherry</strong>.
+          </p>
+
+          <div class="stats-row">
+            <div class="stat-pill">
+              <div class="stat-label">Fewer lines</div>
+              <div class="stat-value">
+                Campus-specific routes like #7 Purple, #12 Lilac, #21 Cardinal,
+                #23 Orange, and #25 Gold <em>do not appear</em> on the standard
+                weekend school-year schedule.
+              </div>
+            </div>
+            <div class="stat-pill">
+              <div class="stat-label">Gaps for students</div>
+              <div class="stat-value">
+                Off-campus jobs, faith communities, grocery stores, and social
+                events can be hard or impossible to reach without a car.
+              </div>
+            </div>
+            <div class="stat-pill">
+              <div class="stat-label">Safety & late night</div>
+              <div class="stat-value">
+                Moonlight Express provides late-night service Friday and Saturday
+                10:30&nbsp;p.m.–2:30&nbsp;a.m., but does not cover summer or all 
+                break periods.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STUDENT IMPACT / STORIES -->
+    <section id="stories">
+      <div class="section-header">
+        <h2>Why do weekend buses matter for students?</h2>
+        <p class="section-note">
+          Hover, tap, or click each idea to see how limited weekend service
+          affects real student needs.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Student life doesn’t stop on Fridays.</h3>
+          <p>
+            CyRide carried nearly <strong>5 million riders in FY2025</strong>,
+            showing how deeply students and Ames residents rely on transit for
+            everyday life — not just commuting to weekday classes.
+          </p>
+
+          <div class="accordion">
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <span>&rsaquo;</span>
+                <div>Off-campus jobs & weekend shifts</div>
+              </div>
+              <div class="accordion-body">
+                Many students work in retail, food service, and childcare on
+                Saturdays and Sundays. When buses are hourly or don’t reach
+                certain job centers on weekends, students can’t accept shifts
+                they need for rent, tuition, and food.
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <span>&rsaquo;</span>
+                <div>Groceries, health care, and faith communities</div>
+              </div>
+              <div class="accordion-body">
+                Weekends are the only time many students can schedule
+                appointments, shop for groceries, or attend services. Reduced
+                weekend routes make it harder to reach clinics, grocery stores,
+                and houses of worship around Ames.
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <span>&rsaquo;</span>
+                <div>Community, wellness, and campus events</div>
+              </div>
+              <div class="accordion-body">
+                Games, club retreats, concerts, and study groups often happen on
+                weekends. When buses run rarely or not at all, students without
+                cars risk isolation, missed opportunities, or unsafe late-night
+                rides with friends.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Images from CyRide’s world</h3>
+          <p>
+            CyRide even sends its bus stop signs “around the world” — a reminder
+            of how iconic and central this system is to the ISU community.
+          </p>
+
+          <div class="image-strip">
+            <div>
+              <!-- CyRide-hosted image 1 -->
+              <img
+                src="https://www.cyride.com/home/showpublishedimage/915/636408362268370000"
+                alt="CyRide bus stop sign held at Uhuru Peak, Mount Kilimanjaro"
+              />
+              <div class="img-caption">
+                A CyRide bus stop sign at Uhuru Peak, Tanzania (from CyRide’s
+                “Around the World” gallery).
+              </div>
+            </div>
+            <div class="image-strip-small">
+              <!-- CyRide-hosted image 2 (same as hero reused for emphasis) -->
+              <img
+                src="https://www.cyride.com/home/showpublishedimage/770/636408362268370000"
+                alt="CyRide bus stop sign next to a bus in a depot"
+              />
+              <div class="img-caption">
+                CyRide signage alongside another transit system —
+                emphasizing how recognizable the brand is.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUTIONS / ARGUMENT -->
+    <section id="solutions">
+      <div class="section-header">
+        <h2>What would “better” weekend CyRide look like?</h2>
+        <p class="section-note">
+          These proposals build on routes CyRide already operates and extend
+          them to match how students actually use Ames on Saturdays and Sundays.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>1. Core campus routes on weekends</h3>
+          <p>
+            Bring at least <strong>one campus-focused route</strong> (like
+            #21 Cardinal or #23 Orange) into regular weekend service to connect
+            major residence halls, campus hubs, and Campustown.
+          </p>
+          <p>
+            This would give car-free students dependable access to libraries,
+            the Memorial Union, rec facilities, and events without relying on
+            friends for rides.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>2. Stronger weekend frequency on key lines</h3>
+          <p>
+            Increase the frequency of core routes that already run weekends
+            (#1 Red, #2 Green, #3 Blue). Shortening waits from, for example,
+            60 minutes to 30 minutes would make buses a realistic option for
+            errands, jobs, and social plans.
+          </p>
+          <p>
+            Even modest changes to weekend timetables can dramatically boost
+            ridership and reduce risky late-night driving.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>3. Protect Moonlight Express & extend breaks</h3>
+          <p>
+            Moonlight Express currently offers free rides anywhere in Ames on
+            Friday and Saturday nights from 10:30&nbsp;p.m. to 2:30&nbsp;a.m.
+            when ISU is in session.
+          </p>
+          <p>
+            Expanding this model to cover parts of summer and more break
+            periods would keep students safer year-round, especially those
+            working late shifts or living off campus.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- POLL -->
+    <section id="vote">
+      <div class="section-header">
+        <h2>Cast your vote: What should improve first?</h2>
+        <p class="section-note">
+          This poll is for class purposes. Your response is stored only on this
+          browser using local storage.
+        </p>
+      </div>
+
+      <div class="poll-layout">
+        <div class="card">
+          <h3>Tell us who you are</h3>
+          <form class="poll-form" id="pollForm">
+            <div>
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="e.g., Cy Clone"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="email">ISU email (for this demo)</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="netid@iastate.edu"
+                required
+              />
+              <p class="poll-note">
+                This project version keeps your name &amp; email only in your
+                own browser’s storage to show how “who voted” can be tracked.
+              </p>
+            </div>
+
+            <div>
+              <label>What is the <strong>most urgent</strong> improvement?</label>
+              <div class="options-list">
+                <label class="option-row">
+                  <input
+                    type="radio"
+                    name="choice"
+                    value="more_weekend_routes"
+                    required
+                  />
+                  <span>More weekend routes serving campus &amp; apartments</span>
+                </label>
+                <label class="option-row">
+                  <input
+                    type="radio"
+                    name="choice"
+                    value="better_frequency"
+                  />
+                  <span>Better frequency on existing Saturday/Sunday lines</span>
+                </label>
+                <label class="option-row">
+                  <input
+                    type="radio"
+                    name="choice"
+                    value="stronger_late_night"
+                  />
+                  <span>
+                    Stronger late-night service (expanding Moonlight Express)
+                  </span>
+                </label>
+                <label class="option-row">
+                  <input
+                    type="radio"
+                    name="choice"
+                    value="keep_as_is"
+                  />
+                  <span>Keep weekend service mostly as it is now</span>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label for="comment">Optional comment</label>
+              <textarea
+                id="comment"
+                name="comment"
+                placeholder="Share a quick story — for example, a time the bus schedule made a weekend hard or easier."
+              ></textarea>
+            </div>
+
+            <div>
+              <button type="submit" class="btn-primary">
+                <span>🚌</span> Submit my vote
+              </button>
+              <div id="pollMessage" class="poll-message"></div>
+            </div>
+          </form>
+        </div>
+
+        <div class="results-card">
+          <div class="results-inner">
+            <div class="pill" style="background: rgba(0,0,0,0.6); color:#fff;">
+              <span class="pill-dot" style="background: var(--isu-gold);"></span>
+              Live class-only poll (local demo)
+            </div>
+            <h3 style="margin-top:0.6rem;">
+              Live Results: Better Weekend CyRide Priorities
+            </h3>
+            <p style="font-size:0.9rem; margin-top:0.4rem;">
+              These results update immediately on this browser. A real
+              implementation could send anonymous data to a server instead.
             </p>
-            <p class="max-w-3xl">
-                The current system creates barriers to academic access and compromises student safety, particularly due to impractical wait times and cut-off housing areas. Our comprehensive plan addresses these critical gaps.
-            </p>
-        </div>
-    </section>
 
-    <!-- Section 2: The Problem (Gray Background) -->
-    <section id="problem" class="content-section py-16 bg-gray-100 text-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold cardinal-text mb-10 text-center">CURRENT SERVICE FAILURES & UNMET DEMAND</h2>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Data Card: Frequency -->
-                <div class="card bg-white p-6 rounded-xl shadow-lg border-t-4 cardinal-border">
-                    <h3 class="text-2xl font-bold cardinal-text mb-3">45+ Min Waits</h3>
-                    <p class="text-gray-700 mb-4">Weekday 10-15 minute waits balloon into 30-45+ minute gaps on weekends, suppressing ridership and making transit unreliable.</p>
+            <div class="results-grid">
+              <div class="result-row" data-option="more_weekend_routes">
+                <div class="result-label">
+                  <span>More weekend routes</span>
+                  <span class="result-count">(0 votes · 0%)</span>
                 </div>
-
-                <!-- Data Card: Coverage -->
-                <div class="card bg-white p-6 rounded-xl shadow-lg border-t-4 cardinal-border">
-                    <h3 class="text-2xl font-bold cardinal-text mb-3">Routes Eliminated</h3>
-                    <p class="text-gray-700 mb-4">Key routes like #12 Lilac are cut, isolating dense student housing areas from campus and essential services.</p>
+                <div class="progress-track">
+                  <div class="progress-bar"></div>
                 </div>
-                
-                <!-- Data Card: SafeRide Flaw -->
-                <div class="card bg-white p-6 rounded-xl shadow-lg border-t-4 cardinal-border">
-                    <h3 class="text-2xl font-bold cardinal-text mb-3">SafeRide Fails</h3>
-                    <p class="text-gray-700 mb-4">The on-demand night service is impractical, with long waits forcing students to abandon it and risk walking home unsafely. It must be replaced by predictable fixed routes.</p>
+              </div>
+
+              <div class="result-row" data-option="better_frequency">
+                <div class="result-label">
+                  <span>Better frequency</span>
+                  <span class="result-count">(0 votes · 0%)</span>
                 </div>
-            </div>
-
-            <!-- Visualization Row -->
-            <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
-                 <div class="card bg-white p-4">
-                    <h3 class="text-xl font-semibold mb-3 cardinal-text">Ridership per Hour Comparison</h3>
-                    <div class="chart-container">
-                        <canvas id="ridershipChart"></canvas>
-                    </div>
+                <div class="progress-track">
+                  <div class="progress-bar"></div>
                 </div>
-                <div class="card bg-white p-4">
-                    <h3 class="text-xl font-semibold mb-3 cardinal-text">Access Loss Due to Route Cuts</h3>
-                    <div class="chart-container">
-                        <canvas id="accessChart"></canvas>
-                    </div>
+              </div>
+
+              <div class="result-row" data-option="stronger_late_night">
+                <div class="result-label">
+                  <span>Stronger late-night options</span>
+                  <span class="result-count">(0 votes · 0%)</span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section 3: The Solution and Interactive Schedule (Uses background image 3) -->
-    <section id="solution" class="content-section py-16 text-white solution-section">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-black bg-opacity-70 p-8 rounded-xl shadow-2xl">
-            <h2 class="text-3xl font-bold gold-text mb-10 text-center">THE 3-PILLAR SOLUTION</h2>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Solution Summary -->
-                <div class="space-y-6">
-                    <h3 class="text-2xl font-bold cardinal-text bg-white p-3 rounded-lg shadow-md text-gray-800">Enhanced Schedule & Predictable Night Service</h3>
-                    <p class="text-gray-200">We propose a practical, high-impact expansion focusing on **Max 20-minute headways** on core routes, extending service until **11:00 PM**, and restoring the crucial **#12 Lilac route** to housing areas.</p>
-                    
-                    <div class="accordion-container space-y-3 mt-6">
-                        <!-- Accordion Item 1 -->
-                        <div class="card bg-gray-50 text-gray-800 shadow-md">
-                            <button class="accordion-button">
-                                <span>A. Enhancing Student Safety</span>
-                                <span class="accordion-icon text-2xl transform transition-transform duration-200">+</span>
-                            </button>
-                            <div class="accordion-content">
-                                <p class="pt-4">Reliable evening transport eliminates the need for high-risk walking or reliance on expensive ride-shares, directly reducing student exposure to hazards.</p>
-                            </div>
-                        </div>
-                        <!-- Accordion Item 2 -->
-                        <div class="card bg-gray-50 text-gray-800 shadow-md">
-                            <button class="accordion-button">
-                                <span>B. Supporting Academic & Economic Access</span>
-                                <span class="accordion-icon text-2xl transform transition-transform duration-200">+</span>
-                            </button>
-                            <div class="accordion-content">
-                                <p class="pt-4">Ensures equal access to campus resources (labs, library) and off-campus employment for all students, regardless of car ownership.</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="progress-track">
+                  <div class="progress-bar"></div>
                 </div>
+              </div>
 
-                <!-- Interactive Schedule Comparison -->
-                <div class="card bg-white p-6 shadow-xl">
-                    <h3 class="text-2xl font-bold cardinal-text mb-4">Route Status Comparison</h3>
-                    <div class="flex space-x-4 mb-4">
-                        <button id="show-weekday" class="filter-button active">Show Weekday (Full)</button>
-                        <button id="show-weekend" class="filter-button">Show Weekend (Current)</button>
-                    </div>
+              <div class="result-row" data-option="keep_as_is">
+                <div class="result
 
-                    <div class="overflow-x-auto rounded-lg shadow-inner border border-gray-200">
-                        <table class="min-w-full divide-y divide-gray-200 bg-white">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Route</th>
-                                    <th id="status-header" class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Weekday Status</th>
-                                    <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Proposed Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="route-schedule-body" class="divide-y divide-gray-100">
-                                <!-- Data populated by JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section 4: Interactive Poll (Uses background image 4) -->
-    <section id="vote" class="content-section py-20 text-center vote-section">
-        <div class="max-w-xl mx-auto px-4 py-8 bg-white rounded-xl shadow-2xl border-t-8 gold-border">
-            <h2 class="text-3xl font-extrabold cardinal-text mb-4">QUANTIFY STUDENT SUPPORT</h2>
-            <p class="text-lg font-semibold text-gray-700 mb-6">Your vote is critical evidence for the Board of Regents. Cast your support now!</p>
-
-            <div id="poll-interface">
-                <p id="support-count" class="text-6xl font-black cardinal-text my-4">0</p>
-                <p class="text-sm font-semibold text-gray-600 mb-6">TOTAL STUDENT SUPPORT VOTES</p>
-                
-                <button id="vote-button" class="poll-button" onclick="castVote()">
-                    I SUPPORT THE EXPANSION! (Cast My Vote)
-                </button>
-                <p id="voted-message" class="mt-4 text-sm font-bold cardinal-text hidden">Thank you! Your vote has been recorded.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-4">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p>&copy; 2025 Student Advocacy for ISU Transit.</p>
-        </div>
-    </footer>
-
-    <script src="app.js"></script>
-</body>
-</html>
