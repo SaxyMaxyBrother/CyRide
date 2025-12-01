@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Better CyRide on Weekends</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo-area">
+      <div class="logo-circle">ISU</div>
+      <div class="logo-text">
+        <h1>Better CyRide on Weekends</h1>
+        <p>Making weekend transit match student life</p>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="#overview">Overview</a>
+      <a href="#why-weekends">Why Weekends Matter</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#stories">Student Voices</a>
+      <a href="#poll">Vote</a>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="overview">
+    <!-- Replace these image URLs with local files you download from cyride.com -->
+    <div class="hero-image hero-image-1" role="img" aria-label="CyRide bus on ISU campus"></div>
+    <div class="hero-overlay">
+      <h2>CyRide runs 7 days a week — but weekends lag behind.</h2>
+      <p>
+        CyRide operates 13 fixed routes plus late-night Moonlight Express and Dial-A-Ride
+        for Ames and Iowa State University. :contentReference[oaicite:0]{index=0}
+        Yet on weekends, only a subset of routes run and some corridors see long gaps between buses.
+      </p>
+      <button id="scrollToPoll" class="cta-button">
+        Cast Your Vote for Better Weekends
+      </button>
+      <div class="hero-facts">
+        <div class="fact-card">
+          <span class="fact-number" data-target="4715514">0</span>
+          <span class="fact-label">rides in 2024 (fixed routes)</span>
+          <small>CyRide fixed-route ridership rebounded to about 4.7 million in 2024. :contentReference[oaicite:1]{index=1}</small>
+        </div>
+        <div class="fact-card">
+          <span class="fact-number" data-target="10">0</span>
+          <span class="fact-label">routes on Saturdays</span>
+          <small>#1 Red (East/West), #2 Green (East/West), #3 Blue, #5 Yellow, #6 Brown (North/South), #9 Plum, #11 Cherry. :contentReference[oaicite:2]{index=2}</small>
+        </div>
+        <div class="fact-card">
+          <span class="fact-number" data-target="9">0</span>
+          <span class="fact-label">routes on Sundays</span>
+          <small>Sunday service drops to 9 routes; several routes never run on weekends. :contentReference[oaicite:3]{index=3}</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMAGE STRIP -->
+  <section class="image-strip" aria-label="CyRide photo gallery">
+    <!-- Use your own downloaded images in /images/ from the official CyRide or ISU sites -->
+    <img src="images/cyride-campus-1.jpg" alt="CyRide bus passing by campanile" />
+    <img src="images/cyride-stop-2.jpg" alt="Students boarding CyRide bus at stop" />
+    <img src="images/cyride-map-3.jpg" alt="CyRide route map view" />
+    <img src="images/cyride-night-4.jpg" alt="CyRide bus at night in Ames" />
+  </section>
+
+  <!-- ARGUMENT SECTION -->
+  <main>
+    <section id="why-weekends" class="content-section">
+      <h2>Why Weekend CyRide Service Needs to Improve</h2>
+      <div class="argument-grid">
+        <article class="argument-card">
+          <h3>1. Student life is weekend-heavy</h3>
+          <p>
+            Classes may taper off Friday afternoon, but student life at Iowa State becomes
+            busiest on Friday nights and weekends — from late-night studying and group projects
+            to jobs, games, residence hall events, and social life.
+          </p>
+          <button class="toggle-details">Show more</button>
+          <div class="details">
+            <p>
+              Many campus and community events — athletic games, club meetings, concerts,
+              and trips to essential places like grocery stores — happen on Saturdays and Sundays.
+              When buses are less frequent or skip certain corridors, students without cars face
+              long waits or expensive rideshares.
+            </p>
+          </div>
+        </article>
+
+        <article class="argument-card">
+          <h3>2. Weekend routes & frequency are limited</h3>
+          <p>
+            CyRide’s school-year schedule includes weekday, Saturday, Sunday, and Moonlight
+            Express services. :contentReference[oaicite:4]{index=4}
+            But the list of weekend routes is noticeably shorter.
+          </p>
+          <button class="toggle-details">Show more</button>
+          <div class="details">
+            <p>
+              On Saturdays, 10 routes operate (#1 Red East/West, #2 Green East/West,
+              #3 Blue, #5 Yellow, #6 Brown North/South, #9 Plum, #11 Cherry). On Sundays,
+              service drops to 9 routes, with #5 Yellow not running. :contentReference[oaicite:5]{index=5}
+              Other routes like #7 Purple, #12 Lilac, and #21 Cardinal are more limited or
+              do not run under some reduced schedules. :contentReference[oaicite:6]{index=6}
+            </p>
+            <p>
+              Fewer routes and longer headways mean some apartments, jobs, and stores become
+              much harder to reach on weekends.
+            </p>
+          </div>
+        </article>
+
+        <article class="argument-card">
+          <h3>3. Safety depends on more than Moonlight Express</h3>
+          <p>
+            Moonlight Express offers free late-night rides within Ames on Friday and Saturday
+            nights from about 10:30 p.m. to 2:30 a.m. when ISU is in session. :contentReference[oaicite:7]{index=7}
+          </p>
+          <button class="toggle-details">Show more</button>
+          <div class="details">
+            <p>
+              This is an incredible service for late-night safety — especially after social
+              events and downtown activities. But outside that time window, students traveling
+              on weekend mornings, afternoons, or early evenings still face long waits or
+              gaps in coverage. Better daytime and evening service complements Moonlight
+              Express and keeps more students off the road.
+            </p>
+          </div>
+        </article>
+
+        <article class="argument-card">
+          <h3>4. Ridership is high enough to justify better weekends</h3>
+          <p>
+            CyRide’s fixed-route ridership was over 4.7 million trips in 2024, up nearly 14%
+            from 2023 as riders return after the pandemic. :contentReference[oaicite:8]{index=8}
+          </p>
+          <button class="toggle-details">Show more</button>
+          <div class="details">
+            <p>
+              That level of demand suggests that improving weekend access isn’t a luxury —
+              it’s a response to how often students, staff, and community members already
+              rely on the bus. With so many riders connected to ISU, making weekend service
+              stronger directly supports student success and equity.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SIMPLE VISUAL COMPARISON -->
+    <section id="evidence" class="content-section">
+      <h2>Visualizing Weekend vs Weekday CyRide</h2>
+      <p>
+        CyRide operates 13 fixed routes overall, plus Dial-A-Ride and Moonlight Express. :contentReference[oaicite:9]{index=9}
+        But weekend service uses only a subset of those routes. The chart below compares how
+        many fixed routes are available on a typical school-year weekday vs. Saturday vs. Sunday.
+      </p>
+
+      <div class="chart">
+        <div class="chart-row">
+          <span class="chart-label">Weekdays (all fixed routes)</span>
+          <div class="chart-bar" data-value="13"></div>
+          <span class="chart-value">13 routes</span>
+        </div>
+        <div class="chart-row">
+          <span class="chart-label">Saturday</span>
+          <div class="chart-bar" data-value="10"></div>
+          <span class="chart-value">10 routes</span>
+        </div>
+        <div class="chart-row">
+          <span class="chart-label">Sunday</span>
+          <div class="chart-bar" data-value="9"></div>
+          <span class="chart-value">9 routes</span>
+        </div>
+      </div>
+
+      <div class="chart-footnote">
+        <p>
+          Counts based on CyRide’s published school-year route lists for Saturdays and Sundays,
+          and overall fixed-route network size. :contentReference[oaicite:10]{index=10}
+        </p>
+      </div>
+    </section>
+
+    <!-- STUDENT STORIES -->
+    <section id="stories" class="content-section">
+      <h2>Student Weekend Experiences</h2>
+      <p>
+        These are example scenarios showing how weekend transit gaps affect students.
+        (You can replace these with real quotes from classmates if you gather them.)
+      </p>
+      <div class="stories-grid">
+        <article class="story-card">
+          <h3>Group Projects Off-Campus</h3>
+          <p>
+            A group project meets at a teammate’s apartment off Lincoln Way on Sunday afternoon.
+            With fewer routes and less frequent service, some group members have to leave
+            over an hour early or rely on friends with cars.
+          </p>
+        </article>
+        <article class="story-card">
+          <h3>Weekend Jobs & Shifts</h3>
+          <p>
+            Many students work retail, food service, or campus jobs that include weekend shifts.
+            When buses run less often, a missed connection means being late to work or needing
+            an expensive rideshare.
+          </p>
+        </article>
+        <article class="story-card">
+          <h3>Groceries & Basic Needs</h3>
+          <p>
+            Students without cars depend on CyRide to buy groceries, pick up prescriptions,
+            and run errands. Weekend gaps can mean putting off basic needs or carrying heavy
+            bags long distances from the nearest stop that does have service.
+          </p>
+        </article>
+        <article class="story-card">
+          <h3>Late-Night Safety</h3>
+          <p>
+            Moonlight Express is a critical safety service, but its hours (about 10:30 p.m.–2:30 a.m.)
+            don’t help when someone is stuck at a friend’s place at 3 a.m. or needs to get home
+            from a late study session that runs past normal routes but before Moonlight starts. :contentReference[oaicite:11]{index=11}
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- POLL SECTION -->
+    <section id="poll" class="content-section poll-section">
+      <h2>Have Your Say: How Should CyRide Improve Weekends?</h2>
+      <p>
+        This interactive poll is just for this project — it saves responses in your browser
+        (localStorage), not on a real server. In a real campaign, the data would be stored
+        on a secure backend database.
+      </p>
+
+      <div class="poll-layout">
+        <!-- VOTE FORM -->
+        <form id="pollForm" class="poll-form">
+          <h3>Step 1: Who are you?</h3>
+          <label>
+            Name
+            <input type="text" id="voterName" required placeholder="Your name" />
+          </label>
+          <label>
+            ISU Email or Net-ID
+            <input type="email" id="voterEmail" required placeholder="netid@iastate.edu" />
+          </label>
+
+          <h3>Step 2: What’s your top priority?</h3>
+          <div class="poll-options">
+            <label class="poll-option">
+              <input type="radio" name="voteOption" value="more_daytime" required />
+              <span>Add more daytime weekend buses on busy routes.</span>
+            </label>
+            <label class="poll-option">
+              <input type="radio" name="voteOption" value="more_evening" />
+              <span>Extend evening service so buses run later before Moonlight Express.</span>
+            </label>
+            <label class="poll-option">
+              <input type="radio" name="voteOption" value="more_coverage" />
+              <span>Restore or add weekend service to routes that currently don’t run.</span>
+            </label>
+            <label class="poll-option">
+              <input type="radio" name="voteOption" value="better_frequency" />
+              <span>Increase frequency (shorter waits) on existing weekend routes.</span>
+            </label>
+          </div>
+
+          <button type="submit" class="cta-button full-width">Submit My Vote</button>
+          <p id="pollMessage" class="poll-message"></p>
+        </form>
+
+        <!-- RESULTS PANEL -->
+        <div class="poll-results">
+          <h3>Live Results (this browser only)</h3>
+          <div class="results-bars">
+            <div class="results-row">
+              <span class="results-label">More daytime buses</span>
+              <div class="results-bar">
+                <div class="results-fill" data-option="more_daytime"></div>
+              </div>
+              <span class="results-percent" data-option="more_daytime">0%</span>
+            </div>
+            <div class="results-row">
+              <span class="results-label">Later evening service</span>
+              <div class="results-bar">
+                <div class="results-fill" data-option="more_evening"></div>
+              </div>
+              <span class="results-percent" data-option="more_evening">0%</span>
+            </div>
+            <div class="results-row">
+              <span class="results-label">More coverage</span>
+              <div class="results-bar">
+                <div class="results-fill" data-option="more_coverage"></div>
+              </div>
+              <span class="results-percent" data-option="more_coverage">0%</span>
+            </div>
+            <div class="results-row">
+              <span class="results-label">Better frequency</span>
+              <div class="results-bar">
+                <div class="results-fill" data-option="better_frequency"></div>
+              </div>
+              <span class="results-percent" data-option="better_frequency">0%</span>
+            </div>
+          </div>
+
+          <h3 class="voter-table-title">Who has voted (on this device)?</h3>
+          <table class="voter-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>ISU Email</th>
+                <th>Priority</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="voterTableBody">
+              <!-- Filled dynamically by script.js -->
+            </tbody>
+          </table>
+          <button id="resetVotes" class="reset-button">
+            Reset All Votes (for demo)
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      Project for English at Iowa State University. Data and images based on
+      publicly available information from CyRide and Iowa State University.
+    </p>
+    <p class="footer-small">
+      Official resources: CyRide schedules and maps, Moonlight Express info, and ISU brand color guidelines. :contentReference[oaicite:12]{index=12}
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
