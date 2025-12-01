@@ -21,7 +21,9 @@ function animateFacts() {
         clearInterval(timer);
       }
       el.textContent =
-        target >= 1000 ? Math.round(current).toLocaleString() : Math.round(current);
+        target >= 1000
+          ? Math.round(current).toLocaleString()
+          : Math.round(current);
     }, stepTime);
   });
 }
@@ -41,6 +43,7 @@ document.querySelectorAll(".toggle-details").forEach((btn) => {
 function animateChart() {
   const rows = document.querySelectorAll(".chart-row");
   let maxValue = 0;
+
   rows.forEach((row) => {
     const bar = row.querySelector(".chart-bar");
     const valueText = row.querySelector(".chart-value");
@@ -54,27 +57,16 @@ function animateChart() {
   rows.forEach((row) => {
     const bar = row.querySelector(".chart-bar");
     const value = Number(bar.dataset.value || "0");
-    const barInner = row.querySelector(".chart-bar::after");
-    // We can’t select ::after with JS directly, so we just set a CSS variable
     const percentage = (value / maxValue) * 100;
-    bar.style.setProperty("--fill-width", `${percentage}%`);
-    // Use the style hook by toggling a class
-    bar.classList.add("chart-bar-animate");
-    bar.style.position = "relative";
-    const afterEl = document.createElement("div");
-    afterEl.style.position = "absolute";
-    afterEl.style.left = "0";
-    afterEl.style.top = "0";
-    afterEl.style.bottom = "0";
-    afterEl.style.width = "0";
-    afterEl.style.borderRadius = "999px";
-    afterEl.style.background =
-      "linear-gradient(90deg, var(--cardinal), var(--gold))";
-    afterEl.style.transition = "width 0.8s ease-out";
-    bar.appendChild(afterEl);
-    // trigger animation
+
+    // Add a fill element inside the bar
+    const fill = document.createElement("div");
+    fill.className = "chart-bar-fill";
+    bar.appendChild(fill);
+
+    // Trigger animation in the next frame
     requestAnimationFrame(() => {
-      afterEl.style.width = `${percentage}%`;
+      fill.style.width = `${percentage}%`;
     });
   });
 }
@@ -180,19 +172,24 @@ pollForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const nameInput = document.getElementById("voterName");
   const emailInput = document.getElementById("voterEmail");
-  const optionInput = pollForm.querySelector("input[name='voteOption']:checked");
+  const optionInput = pollForm.querySelector(
+    "input[name='voteOption']:checked"
+  );
 
   const name = nameInput.value.trim();
   const email = emailInput.value.trim().toLowerCase();
   const choice = optionInput ? optionInput.value : "";
 
   if (!name || !email || !choice) {
-    showPollMessage("Please fill out your name, email, and select an option.", true);
+    showPollMessage(
+      "Please fill out your name, email, and select an option.",
+      true
+    );
     return;
   }
 
   let votes = loadVotes();
-  // Simple "who voted" tracking per device: prevent duplicate email
+  // Simple per-device "who voted" check: prevent duplicate email
   const already = votes.find((v) => v.email === email);
   if (already) {
     showPollMessage(
@@ -222,17 +219,5 @@ function showPollMessage(msg, isError) {
 }
 
 // Reset button (for demo during class)
-document.getElementById("resetVotes").addEventListener("click", () => {
-  if (confirm("Reset all saved votes on this browser?")) {
-    localStorage.removeItem(STORAGE_KEY);
-    updateResultsUI();
-    showPollMessage("Votes cleared for this device (demo only).", false);
-  }
-});
+document.getEl
 
-// On load
-window.addEventListener("DOMContentLoaded", () => {
-  animateFacts();
-  animateChart();
-  updateResultsUI();
-});
