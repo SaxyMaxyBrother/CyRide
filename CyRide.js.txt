@@ -1,0 +1,209 @@
+const CARDINAL = '#C8102E';
+const GOLD = '#FFCD00';
+
+const POLL_KEY = 'cyride_expansion_vote_support_final';
+const HAS_VOTED_KEY = 'cyride_expansion_has_voted_final';
+const INITIAL_SUPPORT = 500; 
+
+const CYRIDE_ROUTES = [
+    { name: '#1 Red', weekdayStatus: 'Full (10-15 min)', weekendStatus: 'Reduced (30-45 min)', proposedAction: 'Increase Frequency to 20 min' },
+    { name: '#2 Green', weekdayStatus: 'Full (10-15 min)', weekendStatus: 'Reduced (30-45 min)', proposedAction: 'Increase Frequency to 20 min' },
+    { name: '#3 Blue', weekdayStatus: 'Full (15 min)', weekendStatus: 'Reduced (30 min)', proposedAction: 'Increase Frequency to 20 min' },
+    { name: '#5 Yellow', weekdayStatus: 'Full Service', weekendStatus: 'NO SERVICE', proposedAction: 'No Action Proposed' },
+    { name: '#6 Brown', weekdayStatus: 'Full (15 min)', weekendStatus: 'Reduced (20-30 min)', proposedAction: 'Increase Frequency to 20 min' },
+    { name: '#9 Plum', weekdayStatus: 'Full (15-20 min)', weekendStatus: 'Reduced (30 min)', proposedAction: 'Increase Frequency to 20 min' },
+    { name: '#12 Lilac', weekdayStatus: 'Full Service', weekendStatus: 'NO SERVICE', proposedAction: 'RESTORE SERVICE (40 min headway)' },
+    { name: '#25 Gold', weekdayStatus: 'Full Service', weekendStatus: 'NO SERVICE', proposedAction: 'No Action Proposed' },
+    { name: 'SafeRide/MLX', weekdayStatus: 'Night Service (F Only)', weekendStatus: 'Night Service (Sat Only)', proposedAction: 'Scrap On-Demand, Extend Fixed Route to 11 PM' },
+];
+
+
+function wrapLabel(label, maxCharsPerLine = 16) {
+    if (label.length <= maxCharsPerLine) return label;
+    const words = label.split(' ');
+    let lines = [];
+    let currentLine = '';
+
+    words.forEach(word => {
+        if (currentLine.length + word.length + 1 > maxCharsPerLine && currentLine.length > 0) {
+            lines.push(currentLine.trim());
+            currentLine = word + ' ';
+        } else {
+            currentLine += word + ' ';
+        }
+    });
+    lines.push(currentLine.trim());
+    return lines;
+}
+
+/* --- Core Interactivity Functions --- */
+
+function setupNavigation() {
+    const navButtons = document.querySelectorAll('#main-nav .nav-button');
+    const sections = document.querySelectorAll('.content-section');
+
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetId = button.getAttribute('data-target');
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            sections.forEach(section => {
+                section.classList.toggle('active', section.id === targetId);
+            });
+        });
+    });
+}
+
+function setupAccordion() {
+    const accordionButtons = document.querySelectorAll('.accordion-button');
+    accordionButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.accordion-icon');
+            const isOpen = content.style.display === 'block';
+
+            content.style.display = isOpen ? 'none' : 'block';
+            icon.textContent = isOpen ? '+' : '−';
+        });
+    });
+}
+
+function initCharts() {
+    // Chart 1: Ridership Efficiency Comparison
+    const ridershipCtx = document.getElementById('ridershipChart').getContext('2d');
+    new Chart(ridershipCtx, {
+        type: 'bar',
+        data: {
+            labels: [wrapLabel('Weekday Average'), wrapLabel('Weekend Average')],
+            datasets: [{
+                label: 'Ridership per Hour',
+                data: [125, 48],
+                backgroundColor: [CARDINAL, GOLD],
+                borderColor: [CARDINAL, GOLD],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true, title: { display: true, text: 'Riders per Bus Hour' } }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { title: (items) => Array.isArray(items[0].chart.data.labels[items[0].dataIndex]) ? items[0].chart.data.labels[items[0].dataIndex].join(' ') : items[0].chart.data.labels[items[0].dataIndex] } }
+            }
+        }
+    });
+
+    // Chart 2: Housing Access Cutoff (Doughnut Chart)
+    const accessCtx = document.getElementById('accessChart').getContext('2d');
+    new Chart(accessCtx, {
+        type: 'doughnut',
+        data: {
+            labels: [wrapLabel('Housing with Weekend Access'), wrapLabel('Housing Losing Weekend Access')],
+            datasets: [{
+                data: [58, 42],
+                backgroundColor: [CARDINAL, '#4B5563'],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { usePointStyle: true } },
+                tooltip: { callbacks: { title: (items) => Array.isArray(items[0].label) ? items[0].label.join(' ') : items[0].label, label: (context) => (context.label || '') + ': ' + (context.parsed !== null ? context.parsed + '%' : '') } }
+            }
+        }
+    });
+}
+
+function renderSchedule(type) {
+    const scheduleBody = document.getElementById('route-schedule-body');
+    const statusHeader = document.getElementById('status-header');
+    scheduleBody.innerHTML = ''; 
+    statusHeader.textContent = type === 'weekday' ? 'WEEKDAY STATUS' : 'WEEKEND STATUS';
+
+    CYRIDE_ROUTES.forEach(route => {
+        const row = document.createElement('tr');
+        const status = type === 'weekday' ? route.weekdayStatus : route.weekendStatus;
+        const isServiceAvailable = status.indexOf('NO SERVICE') === -1;
+        
+        let statusClass = type === 'weekend' ? (isServiceAvailable ? 'status-positive' : 'status-negative') : 'text-gray-700';
+
+        let actionText = route.proposedAction;
+        if (route.proposedAction.indexOf('Increase') > -1 || route.proposedAction.indexOf('RESTORE') > -1 || route.proposedAction.indexOf('Scrap') > -1) {
+             actionText = `<span class="status-proposed">${route.proposedAction}</span>`;
+        }
+
+        row.innerHTML = `
+            <td class="px-3 py-2 text-sm font-medium text-gray-800">${route.name}</td>
+            <td class="px-3 py-2 text-sm ${statusClass}">${status}</td>
+            <td class="px-3 py-2 text-sm">${actionText}</td>
+        `;
+        scheduleBody.appendChild(row);
+    });
+}
+
+function setupScheduleFilter() {
+    const filterButtons = document.querySelectorAll('.filter-button');
+    let currentScheduleType = 'weekday'; 
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            currentScheduleType = button.id === 'show-weekday' ? 'weekday' : 'weekend';
+            renderSchedule(currentScheduleType);
+        });
+    });
+    renderSchedule(currentScheduleType);
+}
+
+
+/* --- Voting Poll Logic --- */
+
+function disableVoting() {
+    document.getElementById('vote-button').disabled = true;
+    document.getElementById('voted-message').classList.remove('hidden');
+}
+
+window.castVote = function() {
+    if (localStorage.getItem(HAS_VOTED_KEY) === 'true') {
+        return; 
+    }
+
+    let supportCount = parseInt(localStorage.getItem(POLL_KEY)) || INITIAL_SUPPORT;
+    supportCount += 1;
+    
+    localStorage.setItem(POLL_KEY, supportCount);
+    localStorage.setItem(HAS_VOTED_KEY, 'true');
+
+    document.getElementById('support-count').textContent = supportCount.toLocaleString();
+    disableVoting();
+}
+
+function initializePoll() {
+    let supportCount = parseInt(localStorage.getItem(POLL_KEY)) || INITIAL_SUPPORT;
+    localStorage.setItem(POLL_KEY, supportCount);
+    document.getElementById('support-count').textContent = supportCount.toLocaleString();
+
+    if (localStorage.getItem(HAS_VOTED_KEY) === 'true') {
+        disableVoting();
+    }
+}
+
+/* --- Main Initialization --- */
+
+window.onload = function() {
+    setupNavigation();
+    setupAccordion();
+    initCharts();
+    setupScheduleFilter();
+    initializePoll();
+    
+    // Set initial active state for first section
+    document.querySelector('#overview').classList.add('active');
+    document.querySelector('.nav-button[data-target="overview"]').classList.add('active');
+};

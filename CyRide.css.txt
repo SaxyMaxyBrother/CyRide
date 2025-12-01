@@ -1,0 +1,105 @@
+/* --- Tailwind Component Styles (Used @apply in HTML, defined here for reference) --- */
+
+/* --- Custom Colors and Theme --- */
+.cardinal-bg { background-color: #C8102E; }
+.cardinal-border { border-color: #C8102E; }
+.cardinal-text { color: #C8102E; }
+.gold-bg { background-color: #FFCD00; }
+.gold-text { color: #FFCD00; }
+.gold-border { border-color: #FFCD00; }
+
+body {
+    background-color: #F8F7F4; /* Light Neutral/Gray Base */
+}
+
+/* --- Navigation Styling --- */
+#main-header {
+    background-color: #C8102E; /* Cardinal Red Header */
+}
+.nav-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: white;
+    transition: background-color 0.2s;
+}
+.nav-button:hover {
+    background-color: rgba(255, 205, 0, 0.2); /* Gold hover effect */
+}
+.nav-button.active {
+    background-color: #FFCD00; /* Gold background for active button */
+    color: #C8102E; /* Cardinal text for active button */
+    font-weight: 700;
+}
+
+/* --- Section Backgrounds (Image Placeholders) --- */
+/* The dark overlay is handled by BG-BLACK BG-OPACITY-60 in the HTML content divs */
+
+.hero-section {
+    /* Placeholder: ISU Campus shot/Iconic Building (Cardinal focused image) */
+    background-image: url('https://placehold.co/1920x800/C8102E/FFFFFF?text=ISU+Campus+Hero+Image');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+.solution-section {
+    /* Placeholder: Bus/Route Map image (Darker background for text contrast) */
+    background-image: url('https://placehold.co/1920x1000/333333/FFCD00?text=CyRide+Bus+Image+Placeholder');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+.vote-section {
+    /* Placeholder: Student crowd/Stadium image (Gold focused image) */
+    background-image: url('https://placehold.co/1920x800/FFCD00/C8102E?text=ISU+VOTE+ACTION+BACKGROUND');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+
+/* --- Interactive Elements Styling (Cardinal/Gold Accents) --- */
+.accordion-button {
+    @apply w-full flex justify-between items-center p-4 text-left font-semibold text-gray-800 bg-white rounded-lg shadow-sm border border-gray-200 hover:bg-gray-50;
+}
+.accordion-content {
+    display: none;
+    @apply p-4 border border-t-0 border-gray-200 rounded-b-lg;
+}
+
+.filter-button {
+     @apply px-4 py-2 rounded-lg text-sm font-semibold border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 transition-colors;
+}
+.filter-button.active {
+     @apply cardinal-bg text-white border-white hover:bg-red-800;
+}
+
+.poll-button {
+    @apply cardinal-bg text-white font-bold py-3 px-8 rounded-full shadow-xl hover:bg-red-800 transition duration-300 transform hover:scale-105 disabled:opacity-50;
+}
+
+/* Chart Container Control */
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 350px;
+    max-height: 400px;
+}
+
+/* Utility Classes for Statuses */
+.status-positive {
+     color: #10B981; /* Green */
+     font-weight: 600;
+}
+.status-negative {
+     color: #EF4444; /* Red */
+     font-weight: 600;
+}
+.status-proposed {
+     color: #FFCD00; /* Gold (Highlighting the solution) */
+     font-weight: 600;
+}
