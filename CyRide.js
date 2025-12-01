@@ -219,5 +219,17 @@ function showPollMessage(msg, isError) {
 }
 
 // Reset button (for demo during class)
-document.getEl
+document.getElementById("resetVotes").addEventListener("click", () => {
+  if (confirm("Reset all saved votes on this browser?")) {
+    localStorage.removeItem(STORAGE_KEY);
+    updateResultsUI();
+    showPollMessage("Votes cleared for this device (demo only).", false);
+  }
+});
 
+// On load
+window.addEventListener("DOMContentLoaded", () => {
+  animateFacts();
+  animateChart();
+  updateResultsUI();
+});
