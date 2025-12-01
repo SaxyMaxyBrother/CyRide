@@ -123,8 +123,9 @@ body {
 
 /* Use an official CyRide hero photo saved locally as /images/cyride-hero.jpg */
 .hero-image-1 {
-  background-image: url("images/cyride-hero.jpg");
+  background-image: url("images/cyride-bus-electric.jpg");
 }
+
 
 .hero-overlay {
   position: absolute;
@@ -544,3 +545,4 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
