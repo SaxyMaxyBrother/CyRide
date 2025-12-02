@@ -293,13 +293,10 @@ body::before {
 /* === Sections === */
 
 .content-section {
-  max-width: var(--max-width);
-  margin: 2.7rem auto;
-  padding: 1.7rem;
-  background: #fff;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-soft);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(2px);
 }
+
 
 .content-section h2 {
   margin-top: 0;
@@ -323,12 +320,9 @@ body::before {
 }
 
 .argument-card {
-  background: var(--bg-muted);
-  border-radius: var(--radius-lg);
-  padding: 1.1rem 1.2rem;
-  position: relative;
-  overflow: hidden;
+  background: rgba(244, 244, 244, 0.92);
 }
+
 
 .argument-card h3 {
   margin-top: 0;
@@ -579,9 +573,10 @@ body::before {
     gap: 0.4rem;
   }
 
-  .image-strip {
-    grid-template-columns: repeat(2, 1fr);
-  }
+ .image-strip {
+  background: rgba(255, 255, 255, 0.85);
+}
+
 
   .hero-overlay {
     padding: 2.4rem 1.3rem;
@@ -651,6 +646,7 @@ body::before {
     white-space: nowrap;
   }
 }
+
 
 
 
