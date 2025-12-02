@@ -160,15 +160,15 @@ body {
 /* === Reusable hover styles === */
 
 .hover-lift {
-  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out,
-    background 0.18s ease-out;
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
 }
 
 .hover-lift:hover {
-  transform: translateY(-4px) scale(1.01);
+  transform: translateY(-4px) scale(1.03); /* slightly larger “magnify” effect */
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
-  background-color: #ffffff !important;
+  /* no background-color change, so text stays fully visible */
 }
+
 
 .hover-lift-soft {
   transition: transform 0.16s ease-out, box-shadow 0.16s ease-out,
@@ -636,3 +636,4 @@ body {
     white-space: nowrap;
   }
 }
+
