@@ -59,12 +59,10 @@ function animateChart() {
     const value = Number(bar.dataset.value || "0");
     const percentage = (value / maxValue) * 100;
 
-    // Add a fill element inside the bar
     const fill = document.createElement("div");
     fill.className = "chart-bar-fill";
     bar.appendChild(fill);
 
-    // Trigger animation in the next frame
     requestAnimationFrame(() => {
       fill.style.width = `${percentage}%`;
     });
@@ -135,7 +133,6 @@ function updateResultsUI() {
     span.title = `${count} vote(s)`;
   });
 
-  // Fill voter table
   const tbody = document.getElementById("voterTableBody");
   tbody.innerHTML = "";
   votes.forEach((v) => {
@@ -157,9 +154,9 @@ function describeChoice(choice) {
     case "more_evening":
       return "Later evening service";
     case "more_coverage":
-      return "More coverage on weekends";
+      return "More weekend coverage";
     case "better_frequency":
-      return "Shorter waits (frequency)";
+      return "Shorter waits";
     default:
       return choice;
   }
@@ -189,11 +186,10 @@ pollForm.addEventListener("submit", (e) => {
   }
 
   let votes = loadVotes();
-  // Simple per-device "who voted" check: prevent duplicate email
   const already = votes.find((v) => v.email === email);
   if (already) {
     showPollMessage(
-      "This ISU email has already voted on this device. Thank you for participating!",
+      "This ISU email has already voted on this device. Thank you!",
       true
     );
     return;
@@ -218,7 +214,6 @@ function showPollMessage(msg, isError) {
   pollMessage.classList.toggle("success", !isError);
 }
 
-// Reset button (for demo during class)
 document.getElementById("resetVotes").addEventListener("click", () => {
   if (confirm("Reset all saved votes on this browser?")) {
     localStorage.removeItem(STORAGE_KEY);
