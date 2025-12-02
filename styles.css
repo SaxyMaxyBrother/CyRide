@@ -28,7 +28,19 @@ body {
   color: var(--text-main);
   line-height: 1.6;
   font-size: 17px;
+  position: relative; /* needed for the blurred background layer */
 }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("images/cyride-map.jpg") center/cover no-repeat;
+  filter: blur(4px);
+  opacity: 0.35;          /* adjust for stronger/weaker map */
+  z-index: -1;            /* keep it behind all content */
+  pointer-events: none;   /* don’t block clicks */
+}
+
 
 /* === Header & Nav === */
 
@@ -636,4 +648,5 @@ body {
     white-space: nowrap;
   }
 }
+
 
