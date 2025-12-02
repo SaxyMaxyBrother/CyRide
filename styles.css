@@ -33,12 +33,15 @@ body {
 body::before {
   content: "";
   position: fixed;
-  inset: 0;
-  background: url("images/cyride-map.jpg") center/cover no-repeat;
-  filter: blur(4px);
-  opacity: 0.35;          /* adjust for stronger/weaker map */
-  z-index: -1;            /* keep it behind all content */
-  pointer-events: none;   /* don’t block clicks */
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: url("images/cyride-map.jpg") center center / cover no-repeat;
+  filter: blur(7px);
+  opacity: 0.45;
+  z-index: -999;
+  pointer-events: none;
 }
 
 
@@ -648,5 +651,6 @@ body::before {
     white-space: nowrap;
   }
 }
+
 
 
